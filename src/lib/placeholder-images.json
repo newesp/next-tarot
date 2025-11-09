@@ -1,0 +1,557 @@
+{
+  "placeholderImages": [
+    {
+      "id": "the-fool",
+      "description": "The Fool tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/90/RWS_Tarot_00_Fool.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/ar00.jpg",
+      "imageHint": "The Fool"
+    },
+    {
+      "id": "the-magician",
+      "description": "The Magician tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/de/RWS_Tarot_01_Magician.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/ar01.jpg",
+      "imageHint": "The Magician"
+    },
+    {
+      "id": "the-high-priestess",
+      "description": "The High Priestess tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/88/RWS_Tarot_02_High_Priestess.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/ar02.jpg",
+      "imageHint": "The High Priestess"
+    },
+    {
+      "id": "the-empress",
+      "description": "The Empress tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d2/RWS_Tarot_03_Empress.jpg",
+      "fallbackImageUrl": "https://www    .sacred-texts.com/tarot/pkt/img/ar03.jpg",
+      "imageHint": "The Empress"
+    },
+    {
+      "id": "the-emperor",
+      "description": "The Emperor tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c3/RWS_Tarot_04_Emperor.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/ar04.jpg",
+      "imageHint": "The Emperor"
+    },
+    {
+      "id": "the-hierophant",
+      "description": "The Hierophant tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/RWS_Tarot_05_Hierophant.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/ar05.jpg",
+      "imageHint": "The Hierophant"
+    },
+    {
+      "id": "the-lovers",
+      "description": "The Lovers tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_06_Lovers.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/ar06.jpg",
+      "imageHint": "The Lovers"
+    },
+    {
+      "id": "the-chariot",
+      "description": "The Chariot tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/RWS_Tarot_07_Chariot.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/ar07.jpg",
+      "imageHint": "The Chariot"
+    },
+    {
+      "id": "strength",
+      "description": "Strength tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f5/RWS_Tarot_08_Strength.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/ar08.jpg",
+      "imageHint": "Strength"
+    },
+    {
+      "id": "the-hermit",
+      "description": "The Hermit tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4d/RWS_Tarot_09_Hermit.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/ar09.jpg",
+      "imageHint": "The Hermit"
+    },
+    {
+      "id": "wheel-of-fortune",
+      "description": "Wheel of Fortune tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3c/RWS_Tarot_10_Wheel_of_Fortune.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/ar10.jpg",
+      "imageHint": "Wheel of Fortune"
+    },
+    {
+      "id": "justice",
+      "description": "Justice tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e0/RWS_Tarot_11_Justice.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/ar11.jpg",
+      "imageHint": "Justice"
+    },
+    {
+      "id": "the-hanged-man",
+      "description": "The Hanged Man tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2b/RWS_Tarot_12_Hanged_Man.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/ar12.jpg",
+      "imageHint": "The Hanged Man"
+    },
+    {
+      "id": "death",
+      "description": "Death tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d7/RWS_Tarot_13_Death.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/ar13.jpg",
+      "imageHint": "Death"
+    },
+    {
+      "id": "temperance",
+      "description": "Temperance tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f8/RWS_Tarot_14_Temperance.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/ar14.jpg",
+      "imageHint": "Temperance"
+    },
+    {
+      "id": "the-devil",
+      "description": "The Devil tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/55/RWS_Tarot_15_Devil.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/ar15.jpg",
+      "imageHint": "The Devil"
+    },
+    {
+      "id": "the-tower",
+      "description": "The Tower tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/53/RWS_Tarot_16_Tower.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/ar16.jpg",
+      "imageHint": "The Tower"
+    },
+    {
+      "id": "the-star",
+      "description": "The Star tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_17_Star.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/ar17.jpg",
+      "imageHint": "The Star"
+    },
+    {
+      "id": "the-moon",
+      "description": "The Moon tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7f/RWS_Tarot_18_Moon.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/ar18.jpg",
+      "imageHint": "The Moon"
+    },
+    {
+      "id": "the-sun",
+      "description": "The Sun tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/17/RWS_Tarot_19_Sun.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/ar19.jpg",
+      "imageHint": "The Sun"
+    },
+    {
+      "id": "judgement",
+      "description": "Judgement tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dd/RWS_Tarot_20_Judgement.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/ar20.jpg",
+      "imageHint": "Judgement"
+    },
+    {
+      "id": "the-world",
+      "description": "The World tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/ff/RWS_Tarot_21_World.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/ar21.jpg",
+      "imageHint": "The World"
+    },
+    {
+      "id": "ace-of-wands",
+      "description": "Ace of Wands tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/11/Wands01.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/waac.jpg",
+      "imageHint": "Ace Wands"
+    },
+    {
+      "id": "two-of-wands",
+      "description": "Two of Wands tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Wands02.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/wa02.jpg",
+      "imageHint": "Two Wands"
+    },
+    {
+      "id": "three-of-wands",
+      "description": "Three of Wands tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Wands03.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/wa03.jpg",
+      "imageHint": "Three Wands"
+    },
+    {
+      "id": "four-of-wands",
+      "description": "Four of Wands tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Wands04.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/wa04.jpg",
+      "imageHint": "Four Wands"
+    },
+    {
+      "id": "five-of-wands",
+      "description": "Five of Wands tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Wands05.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/wa05.jpg",
+      "imageHint": "Five Wands"
+    },
+    {
+      "id": "six-of-wands",
+      "description": "Six of Wands tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Wands06.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/wa06.jpg",
+      "imageHint": "Six Wands"
+    },
+    {
+      "id": "seven-of-wands",
+      "description": "Seven of Wands tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Wands07.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/wa07.jpg",
+      "imageHint": "Seven Wands"
+    },
+    {
+      "id": "eight-of-wands",
+      "description": "Eight of Wands tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Wands08.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/wa08.jpg",
+      "imageHint": "Eight Wands"
+    },
+    {
+      "id": "nine-of-wands",
+      "description": "Nine of Wands tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/RWS1909_-_Wands_09.jpeg/513px-RWS1909_-_Wands_09.jpeg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/wa09.jpg",
+      "imageHint": "Nine Wands"
+    },
+    {
+      "id": "ten-of-wands",
+      "description": "Ten of Wands tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Wands10.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/wa10.jpg",
+      "imageHint": "Ten Wands"
+    },
+    {
+      "id": "page-of-wands",
+      "description": "Page of Wands tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Wands11.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/wapa.jpg",
+      "imageHint": "Page Wands"
+    },
+    {
+      "id": "knight-of-wands",
+      "description": "Knight of Wands tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/16/Wands12.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/wakn.jpg",
+      "imageHint": "Knight Wands"
+    },
+    {
+      "id": "queen-of-wands",
+      "description": "Queen of Wands tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Wands13.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/waqu.jpg",
+      "imageHint": "Queen Wands"
+    },
+    {
+      "id": "king-of-wands",
+      "description": "King of Wands tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Wands14.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/waki.jpg",
+      "imageHint": "King Wands"
+    },
+    {
+      "id": "ace-of-cups",
+      "description": "Ace of Cups tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/36/Cups01.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/cuac.jpg",
+      "imageHint": "Ace Cups"
+    },
+    {
+      "id": "two-of-cups",
+      "description": "Two of Cups tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Cups02.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/cu02.jpg",
+      "imageHint": "Two Cups"
+    },
+    {
+      "id": "three-of-cups",
+      "description": "Three of Cups tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Cups03.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/cu03.jpg",
+      "imageHint": "Three Cups"
+    },
+    {
+      "id": "four-of-cups",
+      "description": "Four of Cups tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/35/Cups04.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/cu04.jpg",
+      "imageHint": "Four Cups"
+    },
+    {
+      "id": "five-of-cups",
+      "description": "Five of Cups tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Cups05.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/cu05.jpg",
+      "imageHint": "Five Cups"
+    },
+    {
+      "id": "six-of-cups",
+      "description": "Six of Cups tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/17/Cups06.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/cu06.jpg",
+      "imageHint": "Six Cups"
+    },
+    {
+      "id": "seven-of-cups",
+      "description": "Seven of Cups tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Cups07.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/cu07.jpg",
+      "imageHint": "Seven Cups"
+    },
+    {
+      "id": "eight-of-cups",
+      "description": "Eight of Cups tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/60/Cups08.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/cu08.jpg",
+      "imageHint": "Eight Cups"
+    },
+    {
+      "id": "nine-of-cups",
+      "description": "Nine of Cups tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/24/Cups09.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/cu09.jpg",
+      "imageHint": "Nine Cups"
+    },
+    {
+      "id": "ten-of-cups",
+      "description": "Ten of Cups tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/84/Cups10.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/cu10.jpg",
+      "imageHint": "Ten Cups"
+    },
+    {
+      "id": "page-of-cups",
+      "description": "Page of Cups tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Cups11.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/cupa.jpg",
+      "imageHint": "Page Cups"
+    },
+    {
+      "id": "knight-of-cups",
+      "description": "Knight of Cups tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Cups12.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/cukn.jpg",
+      "imageHint": "Knight Cups"
+    },
+    {
+      "id": "queen-of-cups",
+      "description": "Queen of Cups tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/62/Cups13.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/cuqu.jpg",
+      "imageHint": "Queen Cups"
+    },
+    {
+      "id": "king-of-cups",
+      "description": "King of Cups tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/04/Cups14.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/cuki.jpg",
+      "imageHint": "King Cups"
+    },
+    {
+      "id": "ace-of-swords",
+      "description": "Ace of Swords tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Swords01.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/swac.jpg",
+      "imageHint": "Ace Swords"
+    },
+    {
+      "id": "two-of-swords",
+      "description": "Two of Swords tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Swords02.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/sw02.jpg",
+      "imageHint": "Two Swords"
+    },
+    {
+      "id": "three-of-swords",
+      "description": "Three of Swords tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/02/Swords03.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/sw03.jpg",
+      "imageHint": "Three Swords"
+    },
+    {
+      "id": "four-of-swords",
+      "description": "Four of Swords tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Swords04.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/sw04.jpg",
+      "imageHint": "Four Swords"
+    },
+    {
+      "id": "five-of-swords",
+      "description": "Five of Swords tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/23/Swords05.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/sw05.jpg",
+      "imageHint": "Five Swords"
+    },
+    {
+      "id": "six-of-swords",
+      "description": "Six of Swords tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/29/Swords06.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/sw06.jpg",
+      "imageHint": "Six Swords"
+    },
+    {
+      "id": "seven-of-swords",
+      "description": "Seven of Swords tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/34/Swords07.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/sw07.jpg",
+      "imageHint": "Seven Swords"
+    },
+    {
+      "id": "eight-of-swords",
+      "description": "Eight of Swords tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Swords08.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/sw08.jpg",
+      "imageHint": "Eight Swords"
+    },
+    {
+      "id": "nine-of-swords",
+      "description": "Nine of Swords tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Swords09.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/sw09.jpg",
+      "imageHint": "Nine Swords"
+    },
+    {
+      "id": "ten-of-swords",
+      "description": "Ten of Swords tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Swords10.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/sw10.jpg",
+      "imageHint": "Ten Swords"
+    },
+    {
+      "id": "page-of-swords",
+      "description": "Page of Swords tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Swords11.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/swpa.jpg",
+      "imageHint": "Page Swords"
+    },
+    {
+      "id": "knight-of-swords",
+      "description": "Knight of Swords tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b0/Swords12.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/swkn.jpg",
+      "imageHint": "Knight Swords"
+    },
+    {
+      "id": "queen-of-swords",
+      "description": "Queen of Swords tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Swords13.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/swqu.jpg",
+      "imageHint": "Queen Swords"
+    },
+    {
+      "id": "king-of-swords",
+      "description": "King of Swords tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/33/Swords14.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/swki.jpg",
+      "imageHint": "King Swords"
+    },
+    {
+      "id": "ace-of-pentacles",
+      "description": "Ace of Pentacles tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fd/Pents01.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/peac.jpg",
+      "imageHint": "Ace Pentacles"
+    },
+    {
+      "id": "two-of-pentacles",
+      "description": "Two of Pentacles tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Pents02.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/pe02.jpg",
+      "imageHint": "Two Pentacles"
+    },
+    {
+      "id": "three-of-pentacles",
+      "description": "Three of Pentacles tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/42/Pents03.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/pe03.jpg",
+      "imageHint": "Three Pentacles"
+    },
+    {
+      "id": "four-of-pentacles",
+      "description": "Four of Pentacles tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/35/Pents04.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/pe04.jpg",
+      "imageHint": "Four Pentacles"
+    },
+    {
+      "id": "five-of-pentacles",
+      "description": "Five of Pentacles tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/96/Pents05.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/pe05.jpg",
+      "imageHint": "Five Pentacles"
+    },
+    {
+      "id": "six-of-pentacles",
+      "description": "Six of Pentacles tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Pents06.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/pe06.jpg",
+      "imageHint": "Six Pentacles"
+    },
+    {
+      "id": "seven-of-pentacles",
+      "description": "Seven of Pentacles tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Pents07.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/pe07.jpg",
+      "imageHint": "Seven Pentacles"
+    },
+    {
+      "id": "eight-of-pentacles",
+      "description": "Eight of Pentacles tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/49/Pents08.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/pe08.jpg",
+      "imageHint": "Eight Pentacles"
+    },
+    {
+      "id": "nine-of-pentacles",
+      "description": "Nine of Pentacles tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Pents09.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/pe09.jpg",
+      "imageHint": "Nine Pentacles"
+    },
+    {
+      "id": "ten-of-pentacles",
+      "description": "Ten of Pentacles tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/42/Pents10.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/pe10.jpg",
+      "imageHint": "Ten Pentacles"
+    },
+    {
+      "id": "page-of-pentacles",
+      "description": "Page of Pentacles tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Pents11.jpg/960px-Pents11.jpg?20240406052951",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/pepa.jpg",
+      "imageHint": "Page Pentacles"
+    },
+    {
+      "id": "knight-of-pentacles",
+      "description": "Knight of Pentacles tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Pents12.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/pekn.jpg",
+      "imageHint": "Knight Pentacles"
+    },
+    {
+      "id": "queen-of-pentacles",
+      "description": "Queen of Pentacles tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/88/Pents13.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/pequ.jpg",
+      "imageHint": "Queen Pentacles"
+    },
+    {
+      "id": "king-of-pentacles",
+      "description": "King of Pentacles tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Pents14.jpg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/peki.jpg",
+      "imageHint": "King Pentacles"
+    },
+    {
+      "id": "card-back",
+      "description": "The back of a tarot card",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Card_back_01.svg",
+      "fallbackImageUrl": "https://www.sacred-texts.com/tarot/pkt/img/back.jpg",
+      "imageHint": "tarot card back"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 271 58% 15%;
+    --foreground: 51 100% 95%;
+
+    --card: 271 50% 20%;
+    --card-foreground: 51 100% 95%;
+
+    --popover: 271 58% 15%;
+    --popover-foreground: 51 100% 95%;
+
+    --primary: 51 100% 50%;
+    --primary-foreground: 271 58% 10%;
+
+    --secondary: 275 100% 30%;
+    --secondary-foreground: 51 100% 50%;
+
+    --muted: 275 100% 30%;
+    --muted-foreground: 51 100% 80%;
+
+    --accent: 275 100% 35%;
+    --accent-foreground: 51 100% 50%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 275 100% 30%;
+    --input: 275 100% 30%;
+    --ring: 51 100% 50%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 271 58% 15%;
+    --foreground: 51 100% 95%;
+
+    --card: 271 50% 20%;
+    --card-foreground: 51 100% 95%;
+
+    --popover: 271 58% 15%;
+    --popover-foreground: 51 100% 95%;
+
+    --primary: 51 100% 50%;
+    --primary-foreground: 271 58% 10%;
+
+    --secondary: 275 100% 30%;
+    --secondary-foreground: 51 100% 50%;
+
+    --muted: 275 100% 30%;
+    --muted-foreground: 51 100% 80%;
+
+    --accent: 275 100% 35%;
+    --accent-foreground: 51 100% 50%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 275 100% 30%;
+    --input: 275 100% 30%;
+    --ring: 51 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-image: radial-gradient(hsl(var(--foreground) / 0.05) 1px, transparent 1px);
+    background-size: 1rem 1rem;
+  }
+}
+
+@layer utilities {
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+}
