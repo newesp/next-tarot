@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useAtomValue } from "jotai";
 
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -20,7 +21,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { TarotCard } from "@/components/app/tarot-card";
-import { tarotDeck, type TarotCardInfo, shuffleAndDrawCards } from "@/lib/tarot-deck";
+import { OshoCard, type DrawnOshoCard } from "@/components/app/osho-card";
+import { SettingsModal } from "@/components/app/settings-modal";
+import {
+  tarotDeck,
+  type TarotCardInfo,
+  shuffleAndDrawCards,
+} from "@/lib/tarot-deck";
+import { oshoZenDeck, shuffleAndDrawOshoCard } from "@/lib/osho-zen-deck";
+import { llmSettingsAtom } from "@/lib/settings";
 import { getTarotInterpretation } from "./actions";
 import { Wand2, AlertTriangle } from "lucide-react";
 import { Loader } from "@/components/ui/loader";
@@ -33,18 +42,20 @@ type DrawnCard = TarotCardInfo & {
 type ReadingState = "initial" | "drawing" | "reading" | "results";
 
 const formSchema = z.object({
-  question: z
-    .string()
-    .min(10, { message: "請輸入至少10個字元的問題。" })
-    .max(200, { message: "問題不能超過200個字元。" }),
+  question: z.string().min(1, { message: "請輸入您的問題。" }),
   spreadType: z.enum(["3-card", "5-card"]),
 });
 
 const DAILY_LIMIT = 3;
 
 export default function Home() {
+  const llmSettings = useAtomValue(llmSettingsAtom);
+
   const [readingState, setReadingState] = useState<ReadingState>("initial");
-  const [drawnCards, setDrawnCards] = useState<DrawnCard[]>([]);
+  const [drawnWaiteCards, setDrawnWaiteCards] = useState<DrawnCard[]>([]);
+  const [drawnOshoCard, setDrawnOshoCard] = useState<DrawnOshoCard | null>(
+    null,
+  );
   const [interpretation, setInterpretation] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const [dailyCount, setDailyCount] = useState(0);
@@ -53,15 +64,15 @@ export default function Home() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      question: "我的未來會是如何？",
+      question: "",
       spreadType: "3-card",
     },
   });
 
   useEffect(() => {
     try {
-      const today = new Date().toISOString().split('T')[0];
-      const storedData = localStorage.getItem('tarotReadingData');
+      const today = new Date().toISOString().split("T")[0];
+      const storedData = localStorage.getItem("tarotReadingData");
       if (storedData) {
         const { date, count } = JSON.parse(storedData);
         if (date === today) {
@@ -71,46 +82,68 @@ export default function Home() {
           }
         } else {
           // New day, reset count
-          localStorage.setItem('tarotReadingData', JSON.stringify({ date: today, count: 0 }));
+          localStorage.setItem(
+            "tarotReadingData",
+            JSON.stringify({ date: today, count: 0 }),
+          );
           setDailyCount(0);
         }
       } else {
         // No data stored, initialize
-        localStorage.setItem('tarotReadingData', JSON.stringify({ date: today, count: 0 }));
+        localStorage.setItem(
+          "tarotReadingData",
+          JSON.stringify({ date: today, count: 0 }),
+        );
       }
     } catch (error) {
       console.error("無法讀取 localStorage:", error);
     }
   }, []);
 
-  const theFoolCard = useMemo(() => tarotDeck.find(card => card.id === 'the-fool'), []);
+  const theFoolCard = useMemo(
+    () => tarotDeck.find((card) => card.id === "the-fool"),
+    [],
+  );
 
   useEffect(() => {
-    if (readingState === 'drawing' && drawnCards.length > 0 && drawnCards.every(card => card.flipped)) {
+    if (
+      readingState === "drawing" &&
+      drawnOshoCard?.flipped &&
+      drawnWaiteCards.length > 0 &&
+      drawnWaiteCards.every((card) => card.flipped)
+    ) {
       setReadingState("reading");
       startTransition(async () => {
         const result = await getTarotInterpretation({
-          question: form.getValues("question"),
-          spreadType: form.getValues("spreadType"),
-          cards: drawnCards,
+          question: form.getValues("question") || "無特定問題",
+          oshoCard: {
+            name: drawnOshoCard.name,
+            chineseName: drawnOshoCard.chineseName,
+          },
+          cards: drawnWaiteCards,
+          llmConfig: llmSettings,
         });
+
         if (result.success) {
-          setInterpretation(result.interpretation);
+          setInterpretation(result.interpretation || "無回應");
         } else {
-          setInterpretation(`發生錯誤： ${result.error}`);
+          setInterpretation(`發生錯誤： ${result.error || "未知錯誤"}`);
         }
         setReadingState("results");
       });
     }
-  }, [drawnCards, readingState, form]);
+  }, [drawnWaiteCards, drawnOshoCard, readingState, form, llmSettings]);
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     if (limitReached) return;
 
     try {
-      const today = new Date().toISOString().split('T')[0];
+      const today = new Date().toISOString().split("T")[0];
       const newCount = dailyCount + 1;
-      localStorage.setItem('tarotReadingData', JSON.stringify({ date: today, count: newCount }));
+      localStorage.setItem(
+        "tarotReadingData",
+        JSON.stringify({ date: today, count: newCount }),
+      );
       setDailyCount(newCount);
       if (newCount >= DAILY_LIMIT) {
         setLimitReached(true);
@@ -122,18 +155,21 @@ export default function Home() {
     setReadingState("drawing");
     setInterpretation(null);
 
+    const oshoCard = { ...shuffleAndDrawOshoCard(), flipped: false };
+    setDrawnOshoCard(oshoCard);
+
     const cardCount = values.spreadType === "3-card" ? 3 : 5;
-    const drawn = shuffleAndDrawCards(tarotDeck, cardCount).map(card => ({
+    const drawn = shuffleAndDrawCards(tarotDeck, cardCount).map((card) => ({
       ...card,
       reversed: Math.random() > 0.5,
       flipped: false,
     }));
-    setDrawnCards(drawn);
+    setDrawnWaiteCards(drawn);
   };
-  
-  function handleCardClick(index: number) {
-    if (readingState === 'drawing' && !drawnCards[index].flipped) {
-      setDrawnCards(prevCards => {
+
+  function handleWaiteCardClick(index: number) {
+    if (readingState === "drawing" && !drawnWaiteCards[index].flipped) {
+      setDrawnWaiteCards((prevCards) => {
         const newCards = [...prevCards];
         newCards[index] = { ...newCards[index], flipped: true };
         return newCards;
@@ -141,10 +177,17 @@ export default function Home() {
     }
   }
 
+  function handleOshoCardClick() {
+    if (readingState === "drawing" && drawnOshoCard && !drawnOshoCard.flipped) {
+      setDrawnOshoCard({ ...drawnOshoCard, flipped: true });
+    }
+  }
+
   function handleRestart() {
-    form.reset({ question: "我的未來會是如何？", spreadType: "3-card" });
+    form.reset({ question: "", spreadType: "3-card" });
     setReadingState("initial");
-    setDrawnCards([]);
+    setDrawnWaiteCards([]);
+    setDrawnOshoCard(null);
     setInterpretation(null);
   }
 
@@ -169,7 +212,7 @@ export default function Home() {
                         </FormLabel>
                         <FormControl>
                           <Textarea
-                            placeholder="描述您關於愛情、事業或人生道路的疑問..."
+                            placeholder="描述您關於愛情、事業或人生道路的疑問（可留白）..."
                             className="text-base"
                             rows={4}
                             {...field}
@@ -186,7 +229,7 @@ export default function Home() {
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <FormLabel className="text-xl font-headline text-primary">
-                          選擇一個牌陣
+                          選擇偉特牌陣長度
                         </FormLabel>
                         <FormControl>
                           <RadioGroup
@@ -200,7 +243,7 @@ export default function Home() {
                                 <RadioGroupItem value="3-card" />
                               </FormControl>
                               <FormLabel className="font-normal text-foreground">
-                                三張牌牌陣
+                                三張牌
                               </FormLabel>
                             </FormItem>
                             <FormItem className="flex items-center space-x-3 space-y-0">
@@ -208,7 +251,7 @@ export default function Home() {
                                 <RadioGroupItem value="5-card" />
                               </FormControl>
                               <FormLabel className="font-normal text-foreground">
-                                五張牌牌陣
+                                五張牌
                               </FormLabel>
                             </FormItem>
                           </RadioGroup>
@@ -217,11 +260,16 @@ export default function Home() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" size="lg" className="w-full" disabled={limitReached}>
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="w-full"
+                    disabled={limitReached}
+                  >
                     <Wand2 className="mr-2 h-5 w-5" />
                     開始抽牌
                   </Button>
-                   {limitReached && (
+                  {limitReached && (
                     <div className="mt-4 flex items-center justify-center gap-2 text-yellow-400 p-3 bg-yellow-900/20 rounded-md">
                       <AlertTriangle className="h-5 w-5" />
                       <p>您今日的占卜次數已達上限。請明天再來！</p>
@@ -237,24 +285,60 @@ export default function Home() {
       case "results":
         return (
           <div className="w-full max-w-7xl animate-in fade-in-0 flex flex-col items-center">
-            <h2 className="mb-4 font-headline text-4xl text-primary">您的塔羅牌解讀</h2>
-            {readingState === 'drawing' && <p className="mb-8 text-muted-foreground">點擊牌卡来翻開它們</p>}
-            <div className="mb-10 flex flex-wrap justify-center gap-4 sm:gap-6" style={{ perspective: '1000px' }}>
-              {drawnCards.map((card, index) => (
-                <div key={card.id + index} className="animate-in fade-in-0 zoom-in-95" style={{animationDelay: `${index * 150}ms`}} onClick={() => handleCardClick(index)}>
-                  <TarotCard card={card} isInteractive={readingState === 'drawing'} />
+            <h2 className="mb-4 font-headline text-4xl text-primary">
+              您的塔羅牌解讀
+            </h2>
+            {readingState === "drawing" && (
+              <p className="mb-8 text-muted-foreground">點擊牌卡来翻開它們</p>
+            )}
+
+            <div
+              className="w-full flex flex-col items-center gap-12"
+              style={{ perspective: "1000px" }}
+            >
+              {/* Osho Zen Card Row - Main Focus */}
+              {drawnOshoCard && (
+                <div className="flex justify-center animate-in fade-in-0 zoom-in-95">
+                  <OshoCard
+                    card={drawnOshoCard}
+                    isInteractive={readingState === "drawing"}
+                    onClick={handleOshoCardClick}
+                  />
                 </div>
-              ))}
+              )}
+
+              {/* Rider Waite Cards Row */}
+              <div className="flex flex-wrap justify-center gap-4 sm:gap-6 relative">
+                <div className="absolute -top-8 text-primary/70 font-headline text-sm tracking-widest w-full text-center">
+                  偉特牌（輔）
+                </div>
+                {drawnWaiteCards.map((card, index) => (
+                  <div
+                    key={card.id + index}
+                    className="animate-in fade-in-0 zoom-in-95"
+                    style={{ animationDelay: `${(index + 1) * 150}ms` }}
+                    onClick={() => handleWaiteCardClick(index)}
+                  >
+                    <TarotCard
+                      card={card}
+                      isInteractive={readingState === "drawing"}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
-            
-            {(readingState === 'reading' || readingState === 'results') && (
-              <Card className="w-full max-w-4xl bg-card/50 backdrop-blur-sm mt-8">
+
+            {(readingState === "reading" || readingState === "results") && (
+              <Card className="w-full max-w-4xl bg-card/50 backdrop-blur-sm mt-12">
                 <CardContent className="p-8 text-left">
-                  <h3 className="font-headline text-2xl text-primary mb-4">AI 解讀</h3>
-                  {isPending || readingState === 'reading' ? (
+                  <h3 className="font-headline text-2xl text-primary mb-4 flex items-center gap-2">
+                    <Wand2 className="w-6 h-6 text-teal-400" />
+                    AI 解讀
+                  </h3>
+                  {isPending || readingState === "reading" ? (
                     <div className="flex items-center gap-4 text-muted-foreground">
                       <Loader className="h-6 w-6" />
-                      <p>AI 正在解讀您的牌卡...</p>
+                      <p>AI 正在融合禪意為您解讀牌卡...</p>
                     </div>
                   ) : (
                     <div className="prose prose-invert text-foreground/90 whitespace-pre-wrap font-body text-base leading-relaxed">
@@ -265,7 +349,13 @@ export default function Home() {
               </Card>
             )}
 
-            <Button onClick={handleRestart} size="lg" variant="outline" className="mt-8" disabled={isPending}>
+            <Button
+              onClick={handleRestart}
+              size="lg"
+              variant="outline"
+              className="mt-8"
+              disabled={isPending}
+            >
               再問一個問題
             </Button>
           </div>
@@ -274,25 +364,28 @@ export default function Home() {
   };
 
   return (
-    <main className="container relative mx-auto flex min-h-screen flex-col items-center justify-center p-4 text-center">
+    <main className="container relative mx-auto flex min-h-screen flex-col items-center justify-center p-4 text-center pb-24">
+      <SettingsModal />
       {theFoolCard && (
-         <div className="absolute top-4 left-4 sm:top-6 sm:left-6">
-           <Image
-             src={theFoolCard.image}
-             alt={theFoolCard.name}
-             width={80}
-             height={140}
-             className="w-20 h-auto rounded-md shadow-lg"
-             data-ai-hint={theFoolCard.hint}
-           />
-         </div>
+        <div className="absolute top-4 left-4 sm:top-6 sm:left-6 hidden md:block">
+          <Image
+            src={theFoolCard.image}
+            alt={theFoolCard.name}
+            width={80}
+            height={140}
+            className="w-20 h-auto rounded-md shadow-lg"
+            data-ai-hint={theFoolCard.hint}
+          />
+        </div>
       )}
-      <div className="flex flex-col items-center gap-2 mb-12">
+      <div className="flex flex-col items-center gap-2 mb-12 mt-12 sm:mt-0">
         <Wand2 className="h-16 w-16 text-primary" />
         <h1 className="font-headline text-5xl tracking-wider text-primary sm:text-7xl">
           神秘指引
         </h1>
-        <p className="text-lg text-muted-foreground sm:text-xl">您的 AI 塔羅指南</p>
+        <p className="text-lg text-muted-foreground sm:text-xl">
+          奧修禪卡與偉特牌的 AI 指南
+        </p>
       </div>
       {renderContent()}
     </main>

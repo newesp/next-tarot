@@ -5,7 +5,10 @@ import { z } from "zod";
 
 const interpretationInputSchema = z.object({
   question: z.string(),
-  spreadType: z.enum(["3-card", "5-card"]),
+  oshoCard: z.object({
+    name: z.string(),
+    chineseName: z.string(),
+  }),
   cards: z.array(
     z.object({
       id: z.string(),
@@ -15,23 +18,30 @@ const interpretationInputSchema = z.object({
       image: z.string(),
       fallbackImageUrl: z.string(),
       hint: z.string(),
-    })
+    }),
   ),
+  llmConfig: z.object({
+    provider: z.enum(["google", "openai", "anthropic"]),
+    model: z.string(),
+    apiKey: z.string(),
+  }),
 });
 
 export async function getTarotInterpretation(
-  input: z.infer<typeof interpretationInputSchema>
+  input: z.infer<typeof interpretationInputSchema>,
 ) {
   try {
     const validatedInput = interpretationInputSchema.parse(input);
     const cardNames = validatedInput.cards.map(
-      (card) => `${card.name}${card.reversed ? " (逆位)" : ""}`
+      (card, index) =>
+        `第${index + 1}張：${card.name}${card.reversed ? " (逆位)" : ""}`,
     );
 
     const result = await interpretTarotCards({
       question: validatedInput.question,
-      spread: validatedInput.spreadType,
+      oshoCard: validatedInput.oshoCard,
       cards: cardNames,
+      llmConfig: validatedInput.llmConfig,
     });
 
     return { success: true, interpretation: result.interpretation };

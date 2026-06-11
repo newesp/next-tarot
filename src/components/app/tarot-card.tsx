@@ -3,7 +3,11 @@
 import { useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { type TarotCardInfo, cardBackImage, cardBackFallbackImage } from "@/lib/tarot-deck";
+import {
+  type TarotCardInfo,
+  cardBackImage,
+  cardBackFallbackImage,
+} from "@/lib/tarot-deck";
 
 interface DrawnCard extends TarotCardInfo {
   reversed: boolean;
@@ -34,7 +38,7 @@ export function TarotCard({ card, isInteractive = false }: TarotCardProps) {
           "w-full aspect-[200/350] relative transition-transform duration-700",
           "transform-style-3d",
           card.flipped && "[transform:rotateY(180deg)]",
-          isInteractive && "cursor-pointer"
+          isInteractive && "cursor-pointer",
         )}
       >
         {/* Back of the card */}
@@ -56,7 +60,12 @@ export function TarotCard({ card, isInteractive = false }: TarotCardProps) {
 
         {/* Front of the card */}
         <div className="absolute inset-0 w-full h-full rounded-xl shadow-lg bg-card border-2 border-primary/50 p-2 backface-hidden [transform:rotateY(180deg)]">
-          <div className={cn("relative h-full w-full overflow-hidden rounded-md", card.reversed && "rotate-180")}>
+          <div
+            className={cn(
+              "relative h-full w-full overflow-hidden rounded-md",
+              card.reversed && "rotate-180",
+            )}
+          >
             <Image
               src={frontImageSrc}
               alt={card.name}
