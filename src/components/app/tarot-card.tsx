@@ -32,7 +32,7 @@ export function TarotCard({ card, isInteractive = false }: TarotCardProps) {
   };
 
   return (
-    <div className="flex flex-col items-center gap-2 w-[150px] sm:w-[200px]">
+    <div className="flex flex-col items-center gap-2 w-full max-w-[200px]">
       <div
         className={cn(
           "w-full aspect-[200/350] relative transition-transform duration-700",

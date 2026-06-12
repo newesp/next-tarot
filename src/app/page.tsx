@@ -30,8 +30,8 @@ import {
 } from "@/lib/tarot-deck";
 import { oshoZenDeck, shuffleAndDrawOshoCard } from "@/lib/osho-zen-deck";
 import { llmSettingsAtom } from "@/lib/settings";
-import { getTarotInterpretation } from "./actions";
-import { Wand2, AlertTriangle } from "lucide-react";
+import { getTarotInterpretation, continueTarotReadingChat } from "./actions";
+import { Wand2, AlertTriangle, Send, RefreshCcw } from "lucide-react";
 import { Loader } from "@/components/ui/loader";
 
 type DrawnCard = TarotCardInfo & {
@@ -56,7 +56,10 @@ export default function Home() {
   const [drawnOshoCard, setDrawnOshoCard] = useState<DrawnOshoCard | null>(
     null,
   );
-  const [interpretation, setInterpretation] = useState<string | null>(null);
+  type Message = { role: "model" | "user"; content: string };
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [chatInput, setChatInput] = useState("");
+  const [isChatting, setIsChatting] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [dailyCount, setDailyCount] = useState(0);
   const [limitReached, setLimitReached] = useState(false);
@@ -125,14 +128,40 @@ export default function Home() {
         });
 
         if (result.success) {
-          setInterpretation(result.interpretation || "無回應");
+          setMessages([{ role: "model", content: result.interpretation || "無回應" }]);
         } else {
-          setInterpretation(`發生錯誤： ${result.error || "未知錯誤"}`);
+          setMessages([{ role: "model", content: `發生錯誤： ${result.error || "未知錯誤"}` }]);
         }
         setReadingState("results");
       });
     }
   }, [drawnWaiteCards, drawnOshoCard, readingState, form, llmSettings]);
+
+  const handleChatSubmit = () => {
+    if (!chatInput.trim() || isChatting || !drawnOshoCard) return;
+
+    const newMessages = [...messages, { role: "user" as const, content: chatInput }];
+    setMessages(newMessages);
+    setChatInput("");
+    setIsChatting(true);
+
+    startTransition(async () => {
+      const result = await continueTarotReadingChat({
+        question: chatInput,
+        history: messages,
+        oshoCard: { name: drawnOshoCard.name, chineseName: drawnOshoCard.chineseName },
+        cards: drawnWaiteCards,
+        llmConfig: llmSettings,
+      });
+
+      if (result.success && result.reply) {
+        setMessages([...newMessages, { role: "model", content: result.reply }]);
+      } else {
+        setMessages([...newMessages, { role: "model", content: `發生錯誤： ${result.error || "未知錯誤"}` }]);
+      }
+      setIsChatting(false);
+    });
+  };
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     if (limitReached) return;
@@ -153,7 +182,8 @@ export default function Home() {
     }
 
     setReadingState("drawing");
-    setInterpretation(null);
+    setMessages([]);
+    setChatInput("");
 
     const oshoCard = { ...shuffleAndDrawOshoCard(), flipped: false };
     setDrawnOshoCard(oshoCard);
@@ -188,7 +218,8 @@ export default function Home() {
     setReadingState("initial");
     setDrawnWaiteCards([]);
     setDrawnOshoCard(null);
-    setInterpretation(null);
+    setMessages([]);
+    setChatInput("");
   }
 
   const renderContent = () => {
@@ -308,14 +339,14 @@ export default function Home() {
               )}
 
               {/* Rider Waite Cards Row */}
-              <div className="flex flex-wrap justify-center gap-4 sm:gap-6 relative">
+              <div className="flex flex-wrap justify-center gap-2 sm:gap-6 relative w-full px-2">
                 <div className="absolute -top-8 text-primary/70 font-headline text-sm tracking-widest w-full text-center">
                   偉特牌（輔）
                 </div>
                 {drawnWaiteCards.map((card, index) => (
                   <div
                     key={card.id + index}
-                    className="animate-in fade-in-0 zoom-in-95"
+                    className="animate-in fade-in-0 zoom-in-95 w-[31%] max-w-[200px] flex justify-center"
                     style={{ animationDelay: `${(index + 1) * 150}ms` }}
                     onClick={() => handleWaiteCardClick(index)}
                   >
@@ -335,29 +366,24 @@ export default function Home() {
                     <Wand2 className="w-6 h-6 text-teal-400" />
                     AI 解讀
                   </h3>
-                  {isPending || readingState === "reading" ? (
-                    <div className="flex items-center gap-4 text-muted-foreground">
-                      <Loader className="h-6 w-6" />
-                      <p>AI 正在融合禪意為您解讀牌卡...</p>
-                    </div>
-                  ) : (
-                    <div className="prose prose-invert text-foreground/90 whitespace-pre-wrap font-body text-base leading-relaxed">
-                      {interpretation}
-                    </div>
-                  )}
+                  <div className="space-y-6">
+                    {messages.map((msg, idx) => (
+                      <div key={idx} className={`p-4 rounded-xl shadow-sm ${msg.role === 'user' ? 'bg-primary/10 ml-8 md:ml-16 border border-primary/20' : 'bg-card/40 mr-8 md:mr-16 border border-white/5'}`}>
+                        <div className="prose prose-invert max-w-none text-foreground/90 whitespace-pre-wrap font-body text-base leading-relaxed">
+                          {msg.content}
+                        </div>
+                      </div>
+                    ))}
+                    {(isPending || isChatting || readingState === "reading") && (
+                      <div className="flex items-center gap-4 text-muted-foreground p-4 bg-card/40 rounded-xl mr-8 md:mr-16 border border-white/5 shadow-sm">
+                        <Loader className="h-6 w-6" />
+                        <p>{isChatting ? "AI 思考中..." : "AI 正在融合禪意為您解讀牌卡..."}</p>
+                      </div>
+                    )}
+                  </div>
                 </CardContent>
               </Card>
             )}
-
-            <Button
-              onClick={handleRestart}
-              size="lg"
-              variant="outline"
-              className="mt-8"
-              disabled={isPending}
-            >
-              再問一個問題
-            </Button>
           </div>
         );
     }
@@ -388,6 +414,40 @@ export default function Home() {
         </p>
       </div>
       {renderContent()}
+
+      {/* Sticky Bottom Chat Input */}
+      {(readingState === "results" || readingState === "reading") && (
+        <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/80 backdrop-blur-md border-t border-border z-50 flex justify-center animate-in slide-in-from-bottom-10">
+          <div className="w-full max-w-4xl flex items-center gap-3">
+            <Button variant="outline" size="icon" onClick={handleRestart} className="shrink-0 h-12 w-12 rounded-full border-primary/50 hover:bg-primary/10" title="重新抽牌">
+              <RefreshCcw className="h-5 w-5 text-primary" />
+            </Button>
+            <div className="flex-1 relative flex items-center">
+              <Textarea 
+                value={chatInput}
+                onChange={(e) => setChatInput(e.target.value)}
+                placeholder="針對牌面繼續追問..."
+                className="min-h-[48px] max-h-[150px] pr-12 py-3 resize-none bg-card rounded-2xl shadow-inner border-primary/30 focus-visible:ring-primary/50 text-base"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleChatSubmit();
+                  }
+                }}
+                disabled={isChatting || isPending || readingState === "reading"}
+              />
+              <Button 
+                size="icon" 
+                className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
+                onClick={handleChatSubmit}
+                disabled={!chatInput.trim() || isChatting || isPending || readingState === "reading"}
+              >
+                <Send className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

@@ -53,3 +53,63 @@ export async function getTarotInterpretation(
     return { success: false, error: "從 AI 取得解讀失敗。" };
   }
 }
+
+import { continueTarotChat } from "@/ai/flows/continue-tarot-chat";
+
+const continueChatInputSchema = z.object({
+  question: z.string(),
+  history: z.array(
+    z.object({
+      role: z.enum(["user", "model", "system"]),
+      content: z.string(),
+    })
+  ),
+  oshoCard: z.object({
+    name: z.string(),
+    chineseName: z.string(),
+  }),
+  cards: z.array(
+    z.object({
+      id: z.string(),
+      name: z.string(),
+      reversed: z.boolean(),
+      flipped: z.boolean(),
+      image: z.string(),
+      fallbackImageUrl: z.string(),
+      hint: z.string(),
+    }),
+  ),
+  llmConfig: z.object({
+    provider: z.enum(["google", "openai", "anthropic"]),
+    model: z.string(),
+    apiKey: z.string(),
+  }),
+});
+
+export async function continueTarotReadingChat(
+  input: z.infer<typeof continueChatInputSchema>,
+) {
+  try {
+    const validatedInput = continueChatInputSchema.parse(input);
+    const cardNames = validatedInput.cards.map(
+      (card, index) =>
+        `第${index + 1}張：${card.name}${card.reversed ? " (逆位)" : ""}`,
+    );
+
+    const result = await continueTarotChat({
+      question: validatedInput.question,
+      history: validatedInput.history,
+      oshoCard: validatedInput.oshoCard,
+      cards: cardNames,
+      llmConfig: validatedInput.llmConfig,
+    });
+
+    return { success: true, reply: result.reply };
+  } catch (error) {
+    console.error("繼續解牌對話時發生錯誤:", error);
+    if (error instanceof z.ZodError) {
+      return { success: false, error: "輸入無效。" };
+    }
+    return { success: false, error: "從 AI 取得回應失敗。" };
+  }
+}
