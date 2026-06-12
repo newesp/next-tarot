@@ -426,7 +426,7 @@ export default function Home() {
               <Textarea 
                 value={chatInput}
                 onChange={(e) => setChatInput(e.target.value)}
-                placeholder="針對牌面繼續追問..."
+                placeholder="針對牌面繼續提問..."
                 className="min-h-[48px] max-h-[150px] pr-12 py-3 resize-none bg-card rounded-2xl shadow-inner border-primary/30 focus-visible:ring-primary/50 text-base"
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
