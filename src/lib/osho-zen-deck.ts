@@ -16,7 +16,7 @@ const oshoZenCardData = [
   { id: "2-inner-voice", name: "Inner Voice", chineseName: "內在的聲音" },
   { id: "3-creativity", name: "Creativity", chineseName: "創造力" },
   { id: "4-the-rebel", name: "The Rebel", chineseName: "叛逆者" },
-  { id: "5-no-thingness", name: "No-Thingness", chineseName: "空" },
+  { id: "5-no-thingness", name: "No-Thingness", chineseName: "空", imageId: "No-Thingness" },
   { id: "6-the-lovers", name: "The Lovers", chineseName: "愛人" },
   { id: "7-awareness", name: "Awareness", chineseName: "覺知" },
   { id: "8-courage", name: "Courage", chineseName: "勇氣" },
@@ -40,7 +40,7 @@ const oshoZenCardData = [
   { id: "the-master", name: "The Master", chineseName: "師父" }, // The Master card
 
   // Fire (Wands) Action
-  { id: "fire-master", name: "Creator", chineseName: "創造者" }, // King
+  { id: "fire-master", name: "Creator", chineseName: "創造者", imageId: "TheCreator" }, // King
   { id: "fire-guide", name: "Sharing", chineseName: "分享" }, // Queen
   { id: "fire-knight", name: "Intensity", chineseName: "強烈" }, // Knight
   { id: "fire-page", name: "Playfulness", chineseName: "遊戲的心情" }, // Page
@@ -64,7 +64,7 @@ const oshoZenCardData = [
   { id: "water-9", name: "Laziness", chineseName: "懶惰" },
   { id: "water-8", name: "Letting Go", chineseName: "放手" },
   { id: "water-7", name: "Projections", chineseName: "投射" },
-  { id: "water-6", name: "The Dream", chineseName: "夢", imageId: "Dream" },
+  { id: "water-6", name: "The Dream", chineseName: "夢", imageId: "TheDream" },
   {
     id: "water-5",
     name: "Clinging To The Past",
@@ -85,7 +85,7 @@ const oshoZenCardData = [
   { id: "cloud-9", name: "Sorrow", chineseName: "悲傷" },
   { id: "cloud-8", name: "Guilt", chineseName: "罪惡感" },
   { id: "cloud-7", name: "Politics", chineseName: "政治" },
-  { id: "cloud-6", name: "The Burden", chineseName: "負擔", imageId: "Burden" },
+  { id: "cloud-6", name: "The Burden", chineseName: "負擔", imageId: "TheBurden" },
   { id: "cloud-5", name: "Comparison", chineseName: "比較" },
   { id: "cloud-4", name: "Postponement", chineseName: "延緩" },
   {
@@ -113,7 +113,7 @@ const oshoZenCardData = [
     id: "rainbow-8",
     name: "The Ordinary",
     chineseName: "平凡",
-    imageId: "Ordinary",
+    imageId: "Ordinariness",
   },
   { id: "rainbow-7", name: "Patience", chineseName: "耐心" },
   { id: "rainbow-6", name: "Compromise", chineseName: "妥協" },
@@ -121,13 +121,13 @@ const oshoZenCardData = [
     id: "rainbow-5",
     name: "The Outsider",
     chineseName: "局外人",
-    imageId: "Outsider",
+    imageId: "TheOutsider",
   },
   {
     id: "rainbow-4",
     name: "The Miser",
     chineseName: "守財奴",
-    imageId: "Miser",
+    imageId: "TheMiser",
   },
   { id: "rainbow-3", name: "Guidance", chineseName: "指引" },
   {
